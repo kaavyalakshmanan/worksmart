@@ -4,7 +4,6 @@ import React, {Component} from 'react';
 import {Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 import {addTodo} from '../actions/todoActions';
-import {v4 as uuid} from "uuid";
 
 class TodoModal extends Component {
     state = {
@@ -27,7 +26,6 @@ class TodoModal extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         const newTodo = {
-            id: uuid(),
             description: this.state.name
         }
         // console.log(this.state.description)

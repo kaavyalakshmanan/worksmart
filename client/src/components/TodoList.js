@@ -10,7 +10,9 @@ import PropTypes from 'prop-types';
 class TodoList extends Component {
     
     componentDidMount() {
+        console.log("getting todos")
         this.props.getTodos();
+
     }
 
     onDeleteClick = (id) => {
@@ -24,14 +26,14 @@ class TodoList extends Component {
             <Container>
                 <ListGroup>
                     <TransitionGroup className="todo-list">
-                        {todos.map(({id, description}) => (
-                            <CSSTransition key={id} timeout={500} classNames="fade">
+                        {todos.map(({_id, description}) => (
+                            <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem>
                                     <Button
                                         className="remove-btn"
                                         color="danger"
                                         size="sm"
-                                        onClick={this.onDeleteClick.bind(this, id)}
+                                        onClick={this.onDeleteClick.bind(this, _id)}
                                         >&times;</Button>
                                     {description}
                                 </ListGroupItem>
