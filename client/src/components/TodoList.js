@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 class TodoList extends Component {
     
     componentDidMount() {
-        console.log("getting todos")
         this.props.getTodos();
 
     }

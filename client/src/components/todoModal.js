@@ -19,8 +19,6 @@ class TodoModal extends Component {
 
     onChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
-        console.log("on change value is " + e.target.value);
-        console.log("on change name is " + e.target.name)
     }
 
     onSubmit = (e) => {
@@ -28,12 +26,10 @@ class TodoModal extends Component {
         const newTodo = {
             description: this.state.name
         }
-        // console.log(this.state.description)
         // Add todo via addTodo action
         this.props.addTodo(newTodo);
         // Close modal
         this.toggle();
-        // console.log(newTodo);
     }
 
     render() {
