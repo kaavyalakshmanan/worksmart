@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import AppNavbar from "./components/AppNavbar";
 import TodoList from "./components/TodoList";
-import TodoModal from './components/todoModal';
+import TodoModal from './components/TodoModal';
 import {Container} from 'reactstrap';
 // Share state throughout components
 import {Provider} from 'react-redux';

@@ -1,7 +1,7 @@
 // Container: component that's hooked to redux
 // Redux state inside a component
 import React, {Component} from 'react';
-import {Button, Modal, ModalBody, Form, FormGroup, Label, Input, ModalHeader} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 import {addTodo} from '../actions/todoActions';
 import {v4 as uuid} from "uuid";
@@ -9,7 +9,7 @@ import {v4 as uuid} from "uuid";
 class TodoModal extends Component {
     state = {
         modal: false,
-        description: ''
+        name: ""
     }
 
     toggle = () => {
@@ -19,21 +19,23 @@ class TodoModal extends Component {
     }
 
     onChange = (e) => {
-        this.setState({[e.target.description]: e.target.value});
+        this.setState({[e.target.name]: e.target.value});
+        console.log("on change value is " + e.target.value);
+        console.log("on change name is " + e.target.name)
     }
 
     onSubmit = (e) => {
         e.preventDefault();
         const newTodo = {
             id: uuid(),
-            description: this.state.description
+            description: this.state.name
         }
-        console.log(this.state.description)
+        // console.log(this.state.description)
         // Add todo via addTodo action
         this.props.addTodo(newTodo);
         // Close modal
         this.toggle();
-        console.log(newTodo);
+        // console.log(newTodo);
     }
 
     render() {
@@ -57,7 +59,7 @@ class TodoModal extends Component {
                                 <Label for="todo">Todo</Label>
                                 <Input 
                                     type="text"
-                                    name="description"
+                                    name="name"
                                     id="todo"
                                     placeholder="Add todo list item"
                                     onChange={this.onChange}

@@ -26,7 +26,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 todos: state.todos.filter(todo => todo.id !== action.payload)
-            }
+            };
         case ADD_TODO:
             return {
                 ...state,
