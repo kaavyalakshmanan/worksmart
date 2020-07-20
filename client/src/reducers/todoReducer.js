@@ -4,7 +4,6 @@
 // When we fetch data from server got getTodos, we dispatch to reducer and send that response we get from server to reducer
 // Then we do what we want with it (eg add todo)
 
-import {v4 as uuid} from "uuid";
 import {GET_TODOS, ADD_TODO, DELETE_TODO, TODOS_LOADING} from '../actions/types';
 
 const initialState = {
