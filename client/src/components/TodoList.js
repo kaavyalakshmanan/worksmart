@@ -2,19 +2,21 @@ import React, {Component} from 'react';
 import {Container, ListGroup, ListGroupItem, Button} from 'reactstrap';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {v4 as uuid} from "uuid";
+// Get state from redux into a react component 
+import {connect} from 'react-redux';
+import {getTodos} from '../actions/todoActions';
+// Put component types inside prop types as a form of validation
+import PropTypes from 'prop-types';
 
 class TodoList extends Component {
-    state = {
-        todos: [
-            {id: uuid(), description: 'Throw way trash'},
-            {id: uuid(), description: 'Buy groceries'},
-            {id: uuid(), description: 'Walk dog'},
-            {id: uuid(), description: 'Water plants'},
-        ]
+    
+    componentDidMount() {
+        this.props.getTodos();
     }
 
     render() {
-        const { todos } = this.state;
+        
+        const { todos } = this.props.todo;
         return(
             <Container>
                 <Button 
@@ -56,4 +58,15 @@ class TodoList extends Component {
     }
 }
 
-export default TodoList;
+TodoList.propTypes = {
+    getTodos: PropTypes.func.isRequired,
+    todo: PropTypes.object.isRequired
+}
+
+// todo comes from root reducer (index.js)
+const mapStateToProps = (state) => ({
+    todo: state.todo
+})
+
+// mapStateToProps takes todos state and map into a component property so that we can use in TodoList.js
+export default connect(mapStateToProps, { getTodos })(TodoList);
