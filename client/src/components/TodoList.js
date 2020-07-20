@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {Container, ListGroup, ListGroupItem, Button} from 'reactstrap';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
-import {v4 as uuid} from "uuid";
 // Get state from redux into a react component 
 import {connect} from 'react-redux';
-import {getTodos} from '../actions/todoActions';
+import {getTodos, deleteTodo} from '../actions/todoActions';
 // Put component types inside prop types as a form of validation
 import PropTypes from 'prop-types';
 
@@ -14,24 +13,15 @@ class TodoList extends Component {
         this.props.getTodos();
     }
 
+    onDeleteClick = (id) => {
+        this.props.deleteTodo(id);
+    }
+
     render() {
         
         const { todos } = this.props.todo;
         return(
             <Container>
-                <Button 
-                className="add-btn"
-                color="dark"
-                onClick={() => {
-                    const description = prompt('Enter todo');
-                    if (description) {
-                        this.setState(state => ({
-                            todos: [...state.todos, {id: uuid(), description}]
-                        }));
-                    }
-                }}
-                >Add Item
-                </Button>
                 <ListGroup>
                     <TransitionGroup className="todo-list">
                         {todos.map(({id, description}) => (
@@ -41,11 +31,7 @@ class TodoList extends Component {
                                         className="remove-btn"
                                         color="danger"
                                         size="sm"
-                                        onClick={() => {
-                                            this.setState(state => ({
-                                                todos: this.state.todos.filter(todo => todo.id !== id)
-                                            }));
-                                        }}
+                                        onClick={this.onDeleteClick.bind(this, id)}
                                         >&times;</Button>
                                     {description}
                                 </ListGroupItem>
@@ -69,4 +55,4 @@ const mapStateToProps = (state) => ({
 })
 
 // mapStateToProps takes todos state and map into a component property so that we can use in TodoList.js
-export default connect(mapStateToProps, { getTodos })(TodoList);
+export default connect(mapStateToProps, { getTodos, deleteTodo })(TodoList);

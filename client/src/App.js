@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import AppNavbar from "./components/AppNavbar";
 import TodoList from "./components/TodoList";
+import TodoModal from './components/todoModal';
+import {Container} from 'reactstrap';
 // Share state throughout components
 import {Provider} from 'react-redux';
 import store from './store';
@@ -13,7 +15,10 @@ function App() {
     <Provider store={store}>
     <div className="App">
       <AppNavbar />
+      <Container>
+      <TodoModal />
       <TodoList />
+      </Container>
     </div>
     </Provider>
   );
