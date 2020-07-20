@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth')
 
 // Todo Model
 const Todo = require('../../models/Todo');
@@ -15,8 +16,8 @@ router.get('/', (req, res) => {
 
 // @route  POST api/todos
 // @desc   Create new todo
-// @access Public
-router.post('/', (req, res) => {
+// @access Private
+router.post('/', auth, (req, res) => {
     const newTodo = new Todo({
         description: req.body.description
     });
@@ -25,8 +26,8 @@ router.post('/', (req, res) => {
 
 // @route  DELETE api/todos/:id
 // @desc   Delete existing todo
-// @access Public
-router.delete('/:id', (req, res) => {
+// @access Private
+router.delete('/:id', auth, (req, res) => {
     Todo.findById(req.params.id)
         .then(todo => todo.remove().then(() => res.json({success: true})))
         .catch(err => res.status(404).json({success: false}))
