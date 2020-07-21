@@ -32,6 +32,8 @@ export default function(state = initialState, action) {
             };
         case LOGIN_SUCCESS:
         case REGISTER_SUCCESS:
+            // Set to local storage
+            localStorage.setItem('token', action.payload.token);
             return {
                 ...state,
                 ...action.payload,
