@@ -4,11 +4,16 @@ import React, {Component} from 'react';
 import {Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 import {addTodo} from '../actions/todoActions';
+import PropTypes from 'prop-types';
 
 class TodoModal extends Component {
     state = {
         modal: false,
         name: ""
+    }
+
+    static propTypes = {
+        isAuthenticated: PropTypes.bool
     }
 
     toggle = () => {
@@ -35,12 +40,13 @@ class TodoModal extends Component {
     render() {
         return(
             <div>
-                <Button
+                {this.props.isAuthenticated ?  <Button
                     color="dark"
                     style={{marginBottom: '2rem'}}
                     onClick={this.toggle}
                 >Add Todo
-                </Button>
+                </Button> : <h4 className="mb-3 ml-4">Please log in to manage items</h4>}
+               
 
                 <Modal 
                     isOpen={this.state.modal}
@@ -75,7 +81,8 @@ class TodoModal extends Component {
 }
 
 const mapStateToProps = state => ({
-    todo: state.todo
+    todo: state.todo,
+    isAuthenticated: state.auth.isAuthenticated
 })
 
 export default connect(mapStateToProps, {addTodo})(TodoModal)

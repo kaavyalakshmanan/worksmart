@@ -8,6 +8,13 @@ import {getTodos, deleteTodo} from '../actions/todoActions';
 import PropTypes from 'prop-types';
 
 class TodoList extends Component {
+
+    static propTypes = {
+        getTodos: PropTypes.func.isRequired,
+        todo: PropTypes.object.isRequired,
+        isAuthenticated: PropTypes.bool
+        
+    }
     
     componentDidMount() {
         this.props.getTodos();
@@ -28,12 +35,13 @@ class TodoList extends Component {
                         {todos.map(({_id, description}) => (
                             <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <ListGroupItem>
-                                    <Button
+                                    {this.props.isAuthenticated ? <Button
                                         className="remove-btn"
                                         color="danger"
                                         size="sm"
                                         onClick={this.onDeleteClick.bind(this, _id)}
-                                        >&times;</Button>
+                                        >&times;</Button>: null}
+                                    
                                     {description}
                                 </ListGroupItem>
                             </CSSTransition>
@@ -45,14 +53,10 @@ class TodoList extends Component {
     }
 }
 
-TodoList.propTypes = {
-    getTodos: PropTypes.func.isRequired,
-    todo: PropTypes.object.isRequired
-}
-
 // todo comes from root reducer (index.js)
 const mapStateToProps = (state) => ({
-    todo: state.todo
+    todo: state.todo,
+    isAuthenticated: state.auth.isAuthenticated
 })
 
 // mapStateToProps takes todos state and map into a component property so that we can use in TodoList.js
